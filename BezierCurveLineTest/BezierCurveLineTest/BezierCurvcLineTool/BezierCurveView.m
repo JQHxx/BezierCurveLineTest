@@ -19,8 +19,8 @@ static CGRect myFrame;
 
 //初始化画布
 +(instancetype)initWithFrame:(CGRect)frame{
-    
-    BezierCurveView *bezierCurveView = [[NSBundle mainBundle] loadNibNamed:@"BezierCurveView" owner:self options:nil].lastObject;
+
+    BezierCurveView *bezierCurveView = [[BezierCurveView alloc]init];
     bezierCurveView.frame = frame;
     
     //背景视图
@@ -40,24 +40,30 @@ static CGRect myFrame;
     UIBezierPath *path = [UIBezierPath bezierPath];
     
     //1.Y轴、X轴的直线
+    // 原点位置
     [path moveToPoint:CGPointMake(MARGIN, CGRectGetHeight(myFrame)-MARGIN)];
+    // Y轴的最高点
     [path addLineToPoint:CGPointMake(MARGIN, MARGIN)];
     
+    // 原点位置
     [path moveToPoint:CGPointMake(MARGIN, CGRectGetHeight(myFrame)-MARGIN)];
+    // X轴最大
     [path addLineToPoint:CGPointMake(MARGIN+CGRectGetWidth(myFrame)-2*MARGIN, CGRectGetHeight(myFrame)-MARGIN)];
     
     //2.添加箭头
+    // Y轴的箭头
     [path moveToPoint:CGPointMake(MARGIN, MARGIN)];
     [path addLineToPoint:CGPointMake(MARGIN-5, MARGIN+5)];
     [path moveToPoint:CGPointMake(MARGIN, MARGIN)];
     [path addLineToPoint:CGPointMake(MARGIN+5, MARGIN+5)];
     
+    // X轴的箭头
     [path moveToPoint:CGPointMake(MARGIN+CGRectGetWidth(myFrame)-2*MARGIN, CGRectGetHeight(myFrame)-MARGIN)];
     [path addLineToPoint:CGPointMake(MARGIN+CGRectGetWidth(myFrame)-2*MARGIN-5, CGRectGetHeight(myFrame)-MARGIN-5)];
     [path moveToPoint:CGPointMake(MARGIN+CGRectGetWidth(myFrame)-2*MARGIN, CGRectGetHeight(myFrame)-MARGIN)];
     [path addLineToPoint:CGPointMake(MARGIN+CGRectGetWidth(myFrame)-2*MARGIN-5, CGRectGetHeight(myFrame)-MARGIN+5)];
 
-    //3.添加索引格
+    //3.添加索引格（刻度）
     //X轴
     for (int i=0; i<x_names.count; i++) {
         CGFloat X = MARGIN + MARGIN*(i+1);
